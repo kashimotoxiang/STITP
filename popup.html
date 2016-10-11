@@ -1,28 +1,33 @@
+<head>
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+
 <meta charset="UTF-8">
 <link rel="stylesheet" href="popup.css" type="text/css"/>
+
 <body>
 <h2>网页眼动识别</h2>
-<br>.
-
-<hr align=centercolor=#987cb9 size=1>
+<br>
+<hr align=center color=#987cb9 size=1>
 <form id="control">
     <br>
-    <input name="start" id="start" type="button" value="启动" onclick="ProcessSwitch();">
-    <br><br>
-    <input name="showWindow" type="checkbox" value="false">显示视点
+    <input name="start" id="start" type="button" value="启动" onclick="switchProcess();">
+    <br>
+    <br>
+    <hr align=center color=#987cb9 size=1>
+    <br>
+    <input name="showGaze" type="checkbox" value="true" checked="on">显示视点
+    <input name="showTrace" type="checkbox" value="false">显示记录
 </form>
+<br>
+<hr align=center color=#987cb9 size=1>
+<br>
+<p id="gazeData">x=<span id="gazeXid">0</span>,y=<span id="gazeYid">0</span></p>
+<div id="output"></div>
 
-<script>
-    var input = document.getElementById("start");
-    function ProcessSwitch() {
-        if (input.value == "启动") {
-            input.value = "暂停";
-        }
-        else {
-            input.value = "启动";
-        }
-    }
-</script>
+<script src="popup.js"></script>
+<script src="socket.js"></script>
+
 </body>
 
 
