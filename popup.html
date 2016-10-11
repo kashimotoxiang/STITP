@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" href="popup.css" type="text/css"/>
+<body>
+<div id="title" class="gray">添加新项</div>
+<form id="control">
+    <br>
+    <input name="start" id="start" type="button" value="启动" onclick="ProcessSwitch();">
+    <br><br>
+    <input name="showWindow" type="checkbox" value="false">开启窗口
+</form>
+
+<script>
+    var input = document.getElementById("start");
+    function ProcessSwitch() {
+        if (input.value == "启动") {
+            input.value = "暂停";
+        }
+        else {
+            input.value = "启动";
+        }
+    }
+</script>
+</body>
+
+

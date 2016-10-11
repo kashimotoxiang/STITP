@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #333;
+    overflow: hidden;
+    margin: 1px;
+    padding: 5px;
+    background: white;
+    font-size: 12px;
+    width: 100px;
+    height: 40px;
+}
+
+img {
+    margin: 0 4px;
+
+}
+
+#addItemDiv {
+    color: #ccc;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.taskItem {
+    cursor: pointer;
+}
+
+input {
+    width: 40px;
+}
