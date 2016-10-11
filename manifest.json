@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
+  "name": "GazeTracing",
+  "description": "stitp项目chrome插件展示平台",
   "version": "1.0",
   "browser_action": {
     "default_icon": "icon.png",
@@ -10,8 +10,17 @@
     "popup": "popup.html"
   },
   "permissions": [
+    "tabs",
     "activeTab",
+    "notifications",
+    "storage",
     "https://ajax.googleapis.com/",
     "http://api.flickr.com/"
-  ]
+  ],
+  "background": {
+    "scripts": [
+      "popup.js"
+    ]
+  },
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
 }

@@ -41,10 +41,16 @@ input {
 
 #start {
     position: absolute;
-    left: 38px;
+    left: 15px;
+}
+
+#suspend {
+    position: absolute;
+    left: 65px;
 }
 
 #gazeData {
     position: absolute;
-    left: 30px;
+    left: 20px;
+    font-size: 20px;
 }

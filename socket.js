@@ -63,4 +63,5 @@ function updataGaze(gazeXData, gazeYData) {
     $("span[id='gazeYid']").html(gazeYData);
 }
 
-window.addEventListener("load", init, false);
+
+window.addEventListener("load", websocketInit, false);
