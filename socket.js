@@ -7,7 +7,7 @@ var wsUri = 'ws://localhost:8080';
 var output;
 
 function websocketInit() {
-    output = document.getElementById("output");
+    output = $('#output');
     updataGaze(20, 20);
     // testWebSocket();
 }
