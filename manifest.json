@@ -2,7 +2,6 @@
   "manifest_version": 2,
   "name": "GazeTracing",
   "description": "stitp项目chrome插件展示平台",
-
   "version": "1.0",
   "browser_action": {
     "default_icon": "icon.png",
@@ -15,12 +14,12 @@
     "activeTab",
     "notifications",
     "storage",
-     "contextMenus",
-     "cookies",
-     "alarms",
-     "webNavigation",
+    "contextMenus",
+    "cookies",
+    "alarms",
+    "webNavigation",
     "https://ajax.googleapis.com/",
-    "http://api.flickr.com/",
+    "http://api.flickr.com/"
   ],
   "background": {
     "scripts": [

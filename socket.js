@@ -3,65 +3,41 @@
  */
 // "use strict";
 
-var wsUri = 'ws://localhost:8080';
-var output;
-
+var ws;
+var timer1;
+var START_FLAG=0;
 function websocketInit() {
-    output = $('#output');
-    updataGaze(20, 20);
-    // testWebSocket();
-}
-
-function testWebSocket() {
-    m_websocket = new WebSocket(wsUri);
-    m_websocket.onopen = function (evt) {
-        onOpen(evt);
-    };
-    m_websocket.onclose = function (evt) {
-        onClose(evt);
-    };
-    m_websocket.onmessage = function (evt) {
-        onMessage(evt);
-    };
-    m_websocket.onerror = function (evt) {
-        onError(evt);
+    ws = new WebSocket("ws://localhost:8181");
+    ws.onopen = function (e) {
+        sendMessage("start");
+        timer1=dataStart();
+        START_FLAG=1;
     };
 }
 
-function onOpen(evt) {
-    writeToScreen("CONNECTED");
-    doSend("WebSocket rocks");
+function websocketShutdown() {
+    sendMessage("stop");
+    dataEnd(timer1);
+    START_FLAG=0;
 }
 
-function onClose(evt) {
-    writeToScreen("DISCONNECTED");
+function websocketContinue() {
+    if (START_FLAG!==1)
+        return;
+    sendMessage("continue");
+    timer1=dataStart(timer1);
 }
 
-function onMessage(evt) {
-    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
-    m_websocket.close();
+function websocketSuspend() {
+    if (START_FLAG!==1)
+        return;
+    sendMessage("suspend");
+    dataEnd(timer1);
 }
 
-function onError(evt) {
-    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+//websocket发送消息
+function sendMessage(data) {
+    ws.send(data);
 }
 
-function doSend(message) {
-    writeToScreen("SENT: " + message);
-    m_websocket.send(message);
-}
-
-function writeToScreen(message) {
-    var pre = document.createElement("p");
-    pre.style.wordWrap = "break-word";
-    pre.innerHTML = message;
-    output.appendChild(pre);
-}
-
-function updataGaze(gazeXData, gazeYData) {
-    $("span[id='gazeXid']").html(gazeXData);
-    $("span[id='gazeYid']").html(gazeYData);
-}
-
-
-window.addEventListener("load", websocketInit, false);
+// window.addEventListener("load", websocketInit, false);
