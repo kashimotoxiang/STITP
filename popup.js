@@ -60,3 +60,18 @@ $(document).ready(function () {
     });
 });
 
+function getScroll(){
+  // 获取滚动条到顶部的垂直高度
+  var height = $(document).scrollTop();
+}
+
+function handlePage(){
+  html2canvas(document.body).then(function(canvas){
+    //对canvas 进行处理  在上面画图
+  });
+}
+//保存图片
+function saveImage(canvas){
+  var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+  window.location.href = image;
+}
