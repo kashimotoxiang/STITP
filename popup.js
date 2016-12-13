@@ -78,7 +78,7 @@ function saveImage(canvas){
 //画圆
 function drawCircle(x,y,canvas){
   var cxt = canvas.getContext("2d");
-  cxt.strokeStyle = "#FF0000";
+  cxt.fillStyle = "rgba(255,0,0,0.3)"; //30%的透明度
   cxt.beginPath();
   //context.arc(x,y,r,sAngle,eAngle,counterclockwise);
   //x	圆的中心的 x 坐标。
