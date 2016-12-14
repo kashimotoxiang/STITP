@@ -23,7 +23,8 @@
   ],
   "background": {
     "scripts": [
-      "popup.js"
+      "popup.js",
+      "socket.js"
     ]
   },
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
