@@ -6,6 +6,8 @@
 var ws;
 var timer1;
 var START_FLAG=0;
+var isStart = false;
+
 function websocketInit() {
     ws = new WebSocket("ws://localhost:8181");
     ws.onopen = function (e) {
@@ -13,12 +15,20 @@ function websocketInit() {
         timer1=dataStart();
         START_FLAG=1;
     };
+
+    ws.onmessage= function(e){
+      console.log(e);
+    }
+    ws.onclose = function(e){
+      console.log("连接中断");
+    }
 }
+
+
 
 function websocketShutdown() {
     sendMessage("stop");
-    dataEnd(timer1);
-    START_FLAG=0;
+    ws.close();
 }
 
 function websocketContinue() {
@@ -38,6 +48,11 @@ function websocketSuspend() {
 //websocket发送消息
 function sendMessage(data) {
     ws.send(data);
+}
+
+//设置状态，在 pop.js 运行
+function setStatus(state){
+  isStart = state;
 }
 
 // window.addEventListener("load", websocketInit, false);

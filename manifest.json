@@ -10,6 +10,7 @@
     "popup": "popup.html"
   },
   "permissions": [
+    "background",
     "tabs",
     "activeTab",
     "notifications",
@@ -18,14 +19,30 @@
     "cookies",
     "alarms",
     "webNavigation",
-    "https://ajax.googleapis.com/",
-    "http://api.flickr.com/"
+    "webRequest",
+    "webNavigation",
+    "webRequestBlocking",
+    "proxy",
+    "*://*/*",
+    "tabs",
+    "storage",
+    "unlimitedStorage",
+    "http://*/*",
+    "https://*/*"
   ],
+
   "background": {
     "scripts": [
-      "popup.js",
       "socket.js"
-    ]
+    ],
+    "persistent": true
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+  "content_scripts":[
+    {
+      "matches":["*://*/*"],
+      "js":[
+        "jquery-3.1.1.min.js"
+      ]
+    }
+  ]
 }
