@@ -4,45 +4,48 @@
 // "use strict";
 
 var ws;
-var timer1;
+//var timer1;
 var START_FLAG=0;
 var isStart = false;
 
 function websocketInit() {
     ws = new WebSocket("ws://localhost:8181");
     ws.onopen = function (e) {
+        console.log("start");
         sendMessage("start");
-        timer1=dataStart();
+        //timer1=dataStart();
         START_FLAG=1;
     };
 
-    ws.onmessage= function(e){
-      console.log(e);
+    ws.onmessage= function(event){
+      console.log(event.data);
+      console.log(event.timestamp);
     }
     ws.onclose = function(e){
       console.log("连接中断");
     }
 }
 
-
-
 function websocketShutdown() {
+      console.log("stop");
     sendMessage("stop");
     ws.close();
 }
 
 function websocketContinue() {
     if (START_FLAG!==1)
-        return;
+      return;
+    console.log("continue");
     sendMessage("continue");
-    timer1=dataStart(timer1);
+    //timer1=dataStart(timer1);
 }
 
 function websocketSuspend() {
     if (START_FLAG!==1)
         return;
+      console.log("suspend");
     sendMessage("suspend");
-    dataEnd(timer1);
+    //dataEnd(timer1);
 }
 
 //websocket发送消息

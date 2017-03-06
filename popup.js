@@ -44,11 +44,11 @@ function Button2() {
     str2 = "暂停";
     if (m_switch.val() == str1) {
         m_switch.val(str2);
-        websocketContinue();//继续
+        bgscrpt.websocketContinue();//继续
     }
     else {
         m_switch.val(str1);
-        websocketSuspend();//暂停
+        bgscrpt.websocketSuspend();//暂停
     }
 }
 
