@@ -33,7 +33,7 @@
 
   "background": {
     "scripts": [
-      "socket.js"
+      "background.js"
     ],
     "persistent": true
   },
