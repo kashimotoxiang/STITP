@@ -1,6 +1,3 @@
-/**
- * Created by kashi on 2016/10/11.
- */
 // "use strict";
 
 var ws;
@@ -8,10 +5,14 @@ var ws;
 var START_FLAG=0;
 var isStart = false;
 var dataArray=[];
+var scrollHeight=0;
 function websocketInit() {
     ws = new WebSocket("ws://localhost:8181");
     ws.binaryType="arraybuffer";//set the type of received data:array, teh default type is bolb
     ws.onopen = function (event) {
+      chrome.tabs.executeScript({
+        file:'jquery-3.1.1.min.js'
+      });
         dataArray=[];// clear the array stored gaze data
         sendMessage("start");
         //timer1=dataStart();
@@ -21,15 +22,18 @@ function websocketInit() {
     ws.onmessage= function(event){
           if (event.data instanceof ArrayBuffer)  {
                 var aDataArray = new Int32Array(event.data);
+                chrome.tabs.executeScript({
+                 code: 'window.postMessage($(document).scrollTop(),"*");console.log($(document).scrollTop());'
+                    });
+                  aDataArray.push(scrollHeight);
                     dataArray.push(aDataArray);
                     console.log("Receive Array:"+aDataArray);
-                 //   for (var i = 0; i < aDataArray.length; ++i) {
-                         //aDataArray[i];
-                 //   }
          }
       else console.log("Receive:"+event.data);
     }
-    ws.onclose = function(event){
+    //window.postMessage({type: "FROM_PAGE",}
+
+    ws.onclose = function(event){                                
       console.log("Connection Stopped");
       START_FLAG=0;
     }
@@ -70,7 +74,7 @@ function setStatus(state){
   isStart = state;
 }
 
-chrome.runtime.onMessage.addListener(
+/*chrome.runtime.onMessage.addListener(
 function(request, sender, sendResponse) {
     console.log('holla');
     chrome.tabs.captureVisibleTab(
@@ -86,7 +90,19 @@ function(request, sender, sendResponse) {
         }
     ); //remember that captureVisibleTab() is a statement
     return true;
-});
+});*/
 
 // window.addEventListener("load", websocketInit, false);
 setInterval(function(){websocketQuery();},100);
+
+/*var s = document.createElement('script');
+s.src = chrome.extension.getURL('html2canvas.js');
+(document.head||document.documentElement).appendChild(s);
+s.onload = function() {
+  s.parentNode.removeChild(s);
+};*/
+  chrome.runtime.onMessage.addListener(
+  function(data, sender, sendResponse) {
+    console.log("ScrollHeight:"+data);
+    scrollHeight=data;
+  });

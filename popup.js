@@ -2,7 +2,7 @@
  * Created by kashi on 2016/10/11.
  */
 "use strict";
-chrome.tabs.insertCSS(null,{file:"drawing.css"});
+//chrome.tabs.insertCSS(null,{file:"drawing.css"});
 var str1, str2;
 //得到从后台运行的 js 文件里的东西，即 socket.js
 var bgscrpt = chrome.extension.getBackgroundPage();
@@ -55,6 +55,11 @@ function Button2() {
 //图片输出
 function Button3() {
   handlePage();
+
+/*chrome.tabs.create({
+        url: "src/testimage.png",
+        active: true
+    });*/
 }
 
 $(document).ready(function() {
@@ -73,19 +78,15 @@ $(document).ready(function() {
   });
 });
 
-function getScroll() {
-  // 获取滚动条到顶部的垂直高度
-  var height = $(document).scrollTop();
-}
 
-function handlePage() {
+
+function handlePage() {chrome.tabs.executeScript({
+   file:"heatmap.js"
+  });
+  chrome.tabs.executeScript({
+   file:"html2canvas.js"
+  });
  chrome.tabs.executeScript({
-    file: "drawing.js"
-  });//在当前浏览页面注入js绘图
-}
-//保存图片
-function saveImage(canvas) {
-  var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-  window.location.href = image;
-
+   file:"drawing.js"
+  });
 }
