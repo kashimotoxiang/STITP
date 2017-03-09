@@ -1,6 +1,3 @@
-/**
- * Created by kashi on 2016/10/11.
- */
 "use strict";
 //chrome.tabs.insertCSS(null,{file:"drawing.css"});
 var str1, str2;
@@ -56,37 +53,50 @@ function Button2() {
 function Button3() {
   handlePage();
 
-/*chrome.tabs.create({
-        url: "src/testimage.png",
-        active: true
-    });*/
+  /*chrome.tabs.create({
+          url: "src/testimage.png",
+          active: true
+      });*/
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   var listbox;
   listbox = $('#start');
-  listbox.on('click', function() {
+  listbox.on('click', function () {
     Button1();
   });
   listbox = $('#suspend');
-  listbox.on('click', function() {
+  listbox.on('click', function () {
     Button2();
   });
   listbox = $('#generate');
-  listbox.on('click', function() {
+  listbox.on('click', function () {
     Button3();
   });
 });
 
-
-
-function handlePage() {chrome.tabs.executeScript({
-   file:"heatmap.js"
+function handlePage() {
+  chrome.tabs.insertCSS(null,{file:"drawing.css"});
+  chrome.tabs.executeScript({
+    file: "heatmap.js"
   });
   chrome.tabs.executeScript({
-   file:"html2canvas.js"
+    file: "html2canvas.js"
   });
- chrome.tabs.executeScript({
-   file:"drawing.js"
-  });
+  var nArray = bgscrpt.dataArray;
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+  chrome.tabs.sendMessage(tabs[0].id, {type:"FROM_BACKGROUND",text:nArray});
+});
+}
+
+function processData(nArray) {
+  for (var arr of nArray) {
+    arr[1] = arr[1] + arr[2];//dealing with the scroll data
+    arr.pop();//delete the scroll data
+  }
+}
+//save the canvas to image
+function saveImage(canvas) {
+  var image = canvas.toDataURL("image/png");
+  window.open(image);
 }
